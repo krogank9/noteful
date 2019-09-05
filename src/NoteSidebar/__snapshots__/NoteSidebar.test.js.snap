@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NoteSidebar component renders the note sidebar with folder name given props 1`] = `
+<ContextConsumer>
+  <Component />
+</ContextConsumer>
+`;
+
+exports[`NoteSidebar component renders with no props 1`] = `
+<ContextConsumer>
+  <Component />
+</ContextConsumer>
+`;

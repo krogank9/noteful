@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NoteItem component renders a blank NoteItem by default 1`] = `
+<li
+  className="noteItem"
+>
+  <h2>
+    <Link
+      to="/note/undefined"
+    />
+  </h2>
+  <p>
+    Date modified 
+  </p>
+  <button>
+    Delete note
+  </button>
+</li>
+`;
+
+exports[`NoteItem component renders the NoteItem given props 1`] = `
+<li
+  className="noteItem"
+>
+  <h2>
+    <Link
+      to="/note/a"
+    >
+      test-class-name
+    </Link>
+  </h2>
+  <p>
+    Date modified 
+    <Component />
+  </p>
+  <button>
+    Delete note
+  </button>
+</li>
+`;
