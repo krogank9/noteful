@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router';
 
 import FolderList from '../FolderList/FolderList.js';
 
@@ -9,10 +10,10 @@ class MainSidebar extends React.Component {
 		return (
 			<div>
 				<FolderList />
-				<button>Add folder</button>
+				<button onClick={() => this.props.history.push("/add-folder")}>Add folder</button>
 			</div>
 		);
 	}
 }
 
-export default MainSidebar;
+export default withRouter(MainSidebar);

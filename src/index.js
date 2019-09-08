@@ -4,9 +4,13 @@ import './index.css';
 import App from './App';
 import { BrowserRouter } from "react-router-dom";
 
+import AppError from './AppError/AppError';
+
 ReactDOM.render(
 	<BrowserRouter>
-		<App />
+		<AppError>
+			<App />
+		</AppError>
 	</BrowserRouter>,
 	document.getElementById('root')
 );

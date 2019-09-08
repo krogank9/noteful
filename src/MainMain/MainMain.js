@@ -1,5 +1,7 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
+
 import NoteItem from '../NoteItem/NoteItem.js';
 
 import NotefulContext from "../NotefulContext.js";
@@ -21,17 +23,33 @@ class MainMain extends React.Component {
 				return note.folderId === folderId;
 		});
 		
+		let noteCount = filteredNotes.length;
+		
+		let noteList = (
+			<ul className="noteList">
+				{filteredNotes.map(note => {
+					return <NoteItem key={note.id} note={note} />
+				})}
+			</ul>
+		);
+		
 		return (
 			<div>
-				<ul className="noteList">
-					{filteredNotes.map(note => {
-						return <NoteItem key={note.id} note={note} />
-					})}
-				</ul>
-				<button>Add note</button>
+				{noteCount > 0 ? noteList : <p>No notes to display. Create one below.</p>}
+				<button onClick={() => this.props.history.push("/add-note")}>Add note</button>
 			</div>
 		);
 	}
 }
+
+MainMain.propTypes = {
+	note: PropTypes.arrayOf(PropTypes.shape({
+		id: PropTypes.string.isRequired,
+		name: PropTypes.string.isRequired,
+		modified: PropTypes.string.isRequired,
+		folderId: PropTypes.string.isRequired,
+		content: PropTypes.string.isRequired
+	}))
+};
 
 export default MainMain;

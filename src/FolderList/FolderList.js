@@ -11,7 +11,9 @@ class FolderList extends React.Component {
 	static contextType = NotefulContext;
 	
 	render() {
-		return (
+		let folderCount = this.context.folders.length;
+		
+		let folderList = (
 			<ul className="folderList">
 				{this.context.folders.map(folder => {
 					return (
@@ -23,6 +25,12 @@ class FolderList extends React.Component {
 					);
 				})}
 			</ul>
+		);
+		
+		let noFolderMessage = (<p>No folders to display. Create one below.</p>);
+		
+		return (
+			folderCount > 0 ? folderList : noFolderMessage
 		);
 	}
 }

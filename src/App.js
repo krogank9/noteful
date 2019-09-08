@@ -5,92 +5,95 @@ import { matchPath, withRouter } from 'react-router';
 
 import NotefulContext from './NotefulContext.js';
 
-import DummyStore from './dummy-store.js';
-
-import NoteSidebar from './NoteSidebar/NoteSidebar.js';
-import MainSidebar from './MainSidebar/MainSidebar.js';
-
-import MainMain from './MainMain/MainMain.js';
-import NoteMain from './NoteMain/NoteMain.js';
+import BrowseScreen from './BrowseScreen/BrowseScreen.js';
+import AddFolder from './AddFolder/AddFolder.js';
+import AddNote from './AddNote/AddNote.js';
 
 class App extends React.Component {
 	
 	state = {
 		folders: [],
 		notes: [],
+		loadingFinished: false,
+		loadingFailed: false,
+		errorMessage: null
 	};
 	
 	constructor() {
 		super();
+		window.requestAddFolder = this.requestAddFolder
 	}
 	
 	getFolderFromId = (folderId) => {
-		let found = this.state.folders.find((folder) => folder.id===folderId);
+		let found = this.state.folders.find(folder => folder.id===folderId);
 		return found;
 	}
 	
 	getNoteFromId = (noteId) => {
-		let found = this.state.notes.find((note) => note.id===noteId);
+		let found = this.state.notes.find(note => note.id===noteId);
 		return found;
 	}
 	
+	onDeleteNote = (id) => {
+		this.setState({notes: this.state.notes.filter(note => note.id !== id)});
+	}
+	
+	onAddFolder = (folder) => {
+		const newFolders = [ ...this.state.folders, folder ];
+		this.setState({"folders": newFolders});
+		this.props.history.push(`/folder/${folder.id}`);
+	}
+	
+	onAddNote = (note) => {
+		const newNotes = [ ...this.state.notes, note ];
+		this.setState({"notes": newNotes});
+		this.props.history.push(`/note/${note.id}`);
+	}
+	
 	render() {
+		if( this.state.loadingFailed ) {
+			throw new Error(this.state.errorMessage);
+		}
+		
 		const contextValue = {
 			...(this.state),
 			"getNoteFromId": this.getNoteFromId,
 			"getFolderFromId": this.getFolderFromId,
-			"requestDeleteNote": this.requestDeleteNote
+			"onDeleteNote": this.onDeleteNote,
+			"onAddFolder": this.onAddFolder,
+			"onAddNote": this.onAddNote,
 		}
+		
+		let mainContents;
+		
+		if(this.state.loadingFinished) {
+			mainContents = (
+				<Switch>
+					<Route
+						exact path="/add-folder"
+						component={AddFolder}
+					/>
+					<Route
+						exact path="/add-note"
+						component={AddNote}
+					/>
+					<Route
+						component={BrowseScreen}
+					/>
+				</Switch>
+			);
+		}
+		else {
+			mainContents = <p>Please wait, loading...</p>;
+		}
+		
 		return (
 			<NotefulContext.Provider value={contextValue}>
 				<header>
 					<h1><Link to="/">Noteful</Link></h1>
 				</header>
 				<main>
-					<div className="sidebar">
-						<Switch>
-							{/*
-								display sidebar with just a back button when 
-								viewing a note
-							*/}
-							<Route
-								exact path='/note/:noteId'
-								component={NoteSidebar}
-							/>
-							
-							{/*
-								display the sidebar with list of folders on 
-								main screen listing all notes. if any folder
-								is selected it will be highlighted.
-							*/}
-							<Route
-								exact path={["/folder/:folderId", "/"]}
-								component={MainSidebar}
-							/>
-						</Switch>
-					</div>
-					<div className="main">
-						<Switch>
-							{/*
-								display note page with the note title, text,
-								info, and an option to delete the note
-							*/}
-							<Route
-								exact path='/note/:noteId'
-								component={NoteMain}
-							/>
-							
-							{/*
-								display the list of notes, if any folder is 
-								selected, filter them and only display the
-								notes in the current folder
-							*/}
-							<Route
-								exact path={["/folder/:folderId", "/"]}
-								component={MainMain}
-							/>
-						</Switch>
-					</div>
+					{mainContents}
 				</main>
 			</NotefulContext.Provider>
 		);
@@ -116,35 +119,23 @@ class App extends React.Component {
 			});
 	}
 	
-	requestDeleteNote = (id) => {
-		fetch(`http://localhost:9090/notes/${id}`, {
-			method: "DELETE", 
-			headers: {'Content-Type': 'application/json'}
-		})
-			.then(response => {
-				if(response.ok) {
-					const isOnNotePage = !!matchPath(
-						this.props.location.pathname, 
-						'/note/:noteId'
-					);
-					if(isOnNotePage)
-						this.props.history.push("/");
-					
-					let newNotes = this.state.notes.filter(note => note.id !== id);
-					this.setState({"notes": newNotes});
-				}
-				else
-					throw Error(response.statusText);
-			})
-			.catch(err => alert(`Error deleting delete note ${id}, ${err}`));
-	}
-	
 	componentDidMount() {
 		Promise.all([this.fetchNotesList(), this.fetchFolderList()])
 			.then((values) => {
-				this.setState({notes: values[0], folders: values[1]});
+				this.setState({
+					notes: values[0],
+					folders: values[1],
+					loadingFinished: true,
+					loadingFailed: false
+				});
 			})
-			.catch(err => alert(`Error connecting to Noteful server ${err}`));
+			.catch(err => {
+				this.setState({
+					loadingFinished: true,
+					loadingFailed: true,
+					errorMessage: err
+				});
+			});
 	}
 }
 

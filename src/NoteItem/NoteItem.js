@@ -1,14 +1,31 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './NoteItem.css';
+import PropTypes from 'prop-types';
 import NotefulContext from "../NotefulContext.js";
 
-class App extends React.Component {
+class NoteItem extends React.Component {
 	static contextType = NotefulContext;
 	
 	static defaultProps = {
-		note: {}
-	};
+		onDeleteNote: () => {}
+	}
+	
+	requestDeleteNote = (id) => {
+		fetch(`http://localhost:9090/notes/${id}`, {
+			method: "DELETE", 
+			headers: {'Content-Type': 'application/json'}
+		})
+			.then(response => {
+				if(response.ok) {
+					this.context.onDeleteNote(id);
+					this.props.onDeleteNote(id);
+				}
+				else
+					throw Error(response.statusText);
+			})
+			.catch(err => alert(`Error deleting delete note ${id}, ${err}`));
+	}
 	
 	render() {
 		return (
@@ -18,9 +35,9 @@ class App extends React.Component {
 						{this.props.note.name}
 					</Link>
 				</h2>
-				<p>Date modified {this.props.note.modified}</p>
+				{ this.props.note.modified && <p>Date modified {this.props.note.modified}</p> }
 				<button
-					onClick={() => this.context.requestDeleteNote(this.props.note.id)}
+					onClick={() => this.requestDeleteNote(this.props.note.id)}
 				>
 					Delete note
 				</button>
@@ -29,4 +46,15 @@ class App extends React.Component {
 	}
 }
 
-export default App;
+NoteItem.propTypes = {
+	note: PropTypes.shape({
+		id: PropTypes.string.isRequired,
+		name: PropTypes.string.isRequired,
+		modified: PropTypes.string,
+		folderId: PropTypes.string.isRequired,
+		content: PropTypes.string.isRequired
+	}),
+	onDeleteNote: PropTypes.func
+};
+
+export default NoteItem;

@@ -6,9 +6,9 @@ import NotefulContext from "../NotefulContext.js";
 class NoteMain extends React.Component {
 	static contextType = NotefulContext;
 	
-	static defaultProps = {
-		note: {}
-	};
+	onDeleteNote = (id) => {
+		this.props.history.push("/");
+	}
 	
 	render() {
 		let noteId = this.props.match.params.noteId;
@@ -16,8 +16,10 @@ class NoteMain extends React.Component {
 		
 		return (
 			<div>
-				<NoteItem note={note} />
-				<p>{note.content}</p>
+				{ note && <>
+					<NoteItem note={note} onDeleteNote={this.onDeleteNote} />
+					<p>{note.content}</p>
+				</>}	
 			</div>
 		);
 	}
