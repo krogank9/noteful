@@ -1,44 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FolderList component renders the FolderList given props 1`] = `
-<ul
-  className="folderList"
->
-  <li
-    key="1"
-  >
-    <NavLink
-      className="folderButton"
-      to="/folder/1"
-    >
-      folder A
-    </NavLink>
-  </li>
-  <li
-    key="2"
-  >
-    <NavLink
-      className="folderButton"
-      to="/folder/2"
-    >
-      folder B
-    </NavLink>
-  </li>
-  <li
-    key="3"
-  >
-    <NavLink
-      className="folderButton"
-      to="/folder/3"
-    >
-      folder C
-    </NavLink>
-  </li>
-</ul>
-`;
-
-exports[`FolderList component renders with no props 1`] = `
-<ul
-  className="folderList"
+<FolderList
+  folders={
+    Array [
+      Object {
+        "id": "1",
+        "name": "folder A",
+      },
+      Object {
+        "id": "2",
+        "name": "folder B",
+      },
+      Object {
+        "id": "3",
+        "name": "folder C",
+      },
+    ]
+  }
 />
 `;
+
+exports[`FolderList component renders with no props 1`] = `<FolderList />`;

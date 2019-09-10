@@ -1,25 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`NoteMain component renders NoteMain given props 1`] = `
-<div>
-  <App
-    note={
-      Object {
-        "id": "a",
-        "modified": 2019-01-15T05:00:00.000Z,
-        "name": "test-class-name",
-      }
+<NoteMain
+  note={
+    Object {
+      "id": "a",
+      "modified": 2019-01-15T05:00:00.000Z,
+      "name": "test-class-name",
     }
-  />
-  <p />
-</div>
+  }
+/>
 `;
 
-exports[`NoteMain component renders a empty NoteMain by default 1`] = `
-<div>
-  <App
-    note={Object {}}
-  />
-  <p />
-</div>
-`;
+exports[`NoteMain component renders a empty NoteMain by default 1`] = `<NoteMain />`;

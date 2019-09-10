@@ -1,25 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`NoteItem component renders a blank NoteItem by default 1`] = `
-<li
-  className="noteItem"
->
-  <h2>
-    <Link
-      to="/note/undefined"
-    />
-  </h2>
-  <p>
-    Date modified 
-  </p>
-  <button>
-    Delete note
-  </button>
-</li>
-`;
-
 exports[`NoteItem component renders the NoteItem given props 1`] = `
-<li
+<div
   className="noteItem"
 >
   <h2>
@@ -31,10 +13,12 @@ exports[`NoteItem component renders the NoteItem given props 1`] = `
   </h2>
   <p>
     Date modified 
-    <Component />
+    2019-01-03T00:00:00.000Z
   </p>
-  <button>
+  <button
+    onClick={[Function]}
+  >
     Delete note
   </button>
-</li>
+</div>
 `;

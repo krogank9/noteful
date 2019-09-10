@@ -3,6 +3,9 @@ import { shallow } from 'enzyme'
 import toJson from 'enzyme-to-json'
 import MainMain from './MainMain'
 
+import NotefulContext from '../NotefulContext.js';
+import DummyStore from "../dummy-store.js"
+
 describe(`MainMain component`, () => {
 	const props = {
 		"notes": [
@@ -36,14 +39,26 @@ describe(`MainMain component`, () => {
 			}
 		]
 	}
+	
+	const contextValue = {
+		...DummyStore
+	}
 
 	it('renders with no props', () => {
-		const wrapper = shallow(<MainMain />)
+		const wrapper = shallow(
+			<NotefulContext.Provider value={contextValue}>
+				<MainMain />
+			</NotefulContext.Provider>
+		)
 		expect(toJson(wrapper)).toMatchSnapshot()
 	})
 
 	it('renders the MainMain given props', () => {
-		const wrapper = shallow(<MainMain {...props} />)
+		const wrapper = shallow(
+			<NotefulContext.Provider value={contextValue}>
+				<MainMain {...props} />
+			</NotefulContext.Provider>
+		)
 		expect(toJson(wrapper)).toMatchSnapshot()
 	})
 })
