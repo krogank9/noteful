@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './MainMain.css';
+
 import PropTypes from 'prop-types';
 
 import NoteItem from '../NoteItem/NoteItem.js';
@@ -28,7 +30,11 @@ class MainMain extends React.Component {
 		let noteList = (
 			<ul className="noteList">
 				{filteredNotes.map(note => {
-					return <NoteItem key={note.id} note={note} />
+					return (
+						<li key={note.id}>
+							<NoteItem note={note} />
+						</li>
+					);
 				})}
 			</ul>
 		);

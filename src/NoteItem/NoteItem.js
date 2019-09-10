@@ -29,7 +29,7 @@ class NoteItem extends React.Component {
 	
 	render() {
 		return (
-			<li className="noteItem">
+			<div className="noteItem">
 				<h2>
 					<Link to={"/note/"+this.props.note.id}>
 						{this.props.note.name}
@@ -41,7 +41,7 @@ class NoteItem extends React.Component {
 				>
 					Delete note
 				</button>
-			</li>
+			</div>
 		);
 	}
 }
