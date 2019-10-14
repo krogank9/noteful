@@ -4,7 +4,7 @@ import './App.css';
 import config from '../config.js';
 import { matchPath, withRouter } from 'react-router';
 
-import NotefulContext from './NotefulContext.js';
+import NotefulContext from '../NotefulContext.js';
 
 import BrowseScreen from '../BrowseScreen/BrowseScreen.js';
 import AddFolder from '../AddFolder/AddFolder.js';
