@@ -1,13 +1,14 @@
 import React from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
 import './App.css';
+import config from '../config.js';
 import { matchPath, withRouter } from 'react-router';
 
 import NotefulContext from './NotefulContext.js';
 
-import BrowseScreen from './BrowseScreen/BrowseScreen.js';
-import AddFolder from './AddFolder/AddFolder.js';
-import AddNote from './AddNote/AddNote.js';
+import BrowseScreen from '../BrowseScreen/BrowseScreen.js';
+import AddFolder from '../AddFolder/AddFolder.js';
+import AddNote from '../AddNote/AddNote.js';
 
 class App extends React.Component {
 	
@@ -102,7 +103,7 @@ class App extends React.Component {
 	}
 	
 	fetchNotesList = () => {
-		return fetch("http://localhost:8000/api/notes")
+		return fetch(`${config.API_ENDPOINT}/api/notes`)
 			.then(response => {
 				if(response.ok)
 					return response.json();
@@ -112,7 +113,7 @@ class App extends React.Component {
 	}
 	
 	fetchFolderList = () => {
-		return fetch("http://localhost:8000/api/folders")
+		return fetch(`${config.API_ENDPOINT}/api/folders`)
 			.then(response => {
 				if(response.ok)
 					return response.json();

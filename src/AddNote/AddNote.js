@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
 import { matchPath, withRouter } from 'react-router';
+import config from '../config.js';
 
 import NotefulContext from '../NotefulContext.js';
 
@@ -8,7 +9,7 @@ class AddNote extends React.Component {
 	static contextType = NotefulContext;
 	
 	requestAddNote = (name, content, folder_id) => {
-		fetch(`http://localhost:8000/api/notes`, {
+		fetch(`${config.API_ENDPOINT}/api/notes`, {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify({"name": name, "content": content, "folder_id": folder_id})

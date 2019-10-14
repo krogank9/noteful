@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './NoteItem.css';
 import PropTypes from 'prop-types';
 import NotefulContext from "../NotefulContext.js";
+import config from '../config.js';
 
 class NoteItem extends React.Component {
 	static contextType = NotefulContext;
@@ -12,7 +13,7 @@ class NoteItem extends React.Component {
 	}
 	
 	requestDeleteNote = (id) => {
-		fetch(`http://localhost:8000/api/notes/${id}`, {
+		fetch(`${config.API_ENDPOINT}/api/notes/${id}`, {
 			method: "DELETE", 
 			headers: {'Content-Type': 'application/json'}
 		})

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
 import { matchPath, withRouter } from 'react-router';
+import config from '../config.js';
 
 import NotefulContext from '../NotefulContext.js';
 
@@ -8,7 +9,7 @@ class AddFolder extends React.Component {
 	static contextType = NotefulContext;
 	
 	requestAddFolder = (name) => {
-		fetch(`http://localhost:8000/api/folders`, {
+		fetch(`${config.API_ENDPOINT}/api/folders`, {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify({"name": name})
