@@ -25,17 +25,19 @@ class App extends React.Component {
 	}
 	
 	getFolderFromId = (folderId) => {
-		let found = this.state.folders.find(folder => folder.id===folderId);
+		let found = this.state.folders.find(folder => parseInt(folder.id)===parseInt(folderId));
 		return found;
 	}
 	
 	getNoteFromId = (noteId) => {
-		let found = this.state.notes.find(note => note.id===noteId);
+		let found = this.state.notes.find(note => parseInt(note.id)===parseInt(noteId));
+		console.log("found: ");
+		console.log(found);
 		return found;
 	}
 	
 	onDeleteNote = (id) => {
-		this.setState({notes: this.state.notes.filter(note => note.id !== id)});
+		this.setState({notes: this.state.notes.filter(note => parseInt(note.id) !== parseInt(id))});
 	}
 	
 	onAddFolder = (folder) => {
@@ -100,7 +102,7 @@ class App extends React.Component {
 	}
 	
 	fetchNotesList = () => {
-		return fetch("http://localhost:9090/notes")
+		return fetch("http://localhost:8000/api/notes")
 			.then(response => {
 				if(response.ok)
 					return response.json();
@@ -110,7 +112,7 @@ class App extends React.Component {
 	}
 	
 	fetchFolderList = () => {
-		return fetch("http://localhost:9090/folders")
+		return fetch("http://localhost:8000/api/folders")
 			.then(response => {
 				if(response.ok)
 					return response.json();

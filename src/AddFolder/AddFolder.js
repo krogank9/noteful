@@ -8,7 +8,7 @@ class AddFolder extends React.Component {
 	static contextType = NotefulContext;
 	
 	requestAddFolder = (name) => {
-		fetch(`http://localhost:9090/folders`, {
+		fetch(`http://localhost:8000/api/folders`, {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify({"name": name})

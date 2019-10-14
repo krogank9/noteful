@@ -12,7 +12,7 @@ class NoteItem extends React.Component {
 	}
 	
 	requestDeleteNote = (id) => {
-		fetch(`http://localhost:9090/notes/${id}`, {
+		fetch(`http://localhost:8000/api/notes/${id}`, {
 			method: "DELETE", 
 			headers: {'Content-Type': 'application/json'}
 		})

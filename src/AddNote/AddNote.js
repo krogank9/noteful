@@ -8,7 +8,7 @@ class AddNote extends React.Component {
 	static contextType = NotefulContext;
 	
 	requestAddNote = (name, content, folderId) => {
-		fetch(`http://localhost:9090/notes`, {
+		fetch(`http://localhost:8000/api/notes`, {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify({"name": name, "content": content, "folderId": folderId})

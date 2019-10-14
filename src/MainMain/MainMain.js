@@ -22,7 +22,7 @@ class MainMain extends React.Component {
 			if (!folderId)
 				return true;
 			else
-				return note.folderId === folderId;
+				return parseInt(note.folderId) === parseInt(folderId);
 		});
 		
 		let noteCount = filteredNotes.length;
