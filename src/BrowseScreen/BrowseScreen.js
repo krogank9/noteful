@@ -30,7 +30,7 @@ class BrowseScreen extends React.Component {
 							is selected it will be highlighted.
 						*/}
 						<Route
-							exact path={["/folder/:folderId", "/"]}
+							exact path={["/folder/:folder_id", "/"]}
 							component={MainSidebar}
 						/>
 					</Switch>
@@ -52,7 +52,7 @@ class BrowseScreen extends React.Component {
 							notes in the current folder
 						*/}
 						<Route
-							exact path={["/folder/:folderId", "/"]}
+							exact path={["/folder/:folder_id", "/"]}
 							component={MainMain}
 						/>
 					</Switch>

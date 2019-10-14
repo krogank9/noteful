@@ -24,8 +24,8 @@ class App extends React.Component {
 		window.requestAddFolder = this.requestAddFolder
 	}
 	
-	getFolderFromId = (folderId) => {
-		let found = this.state.folders.find(folder => parseInt(folder.id)===parseInt(folderId));
+	getFolderFromId = (folder_id) => {
+		let found = this.state.folders.find(folder => parseInt(folder.id)===parseInt(folder_id));
 		return found;
 	}
 	

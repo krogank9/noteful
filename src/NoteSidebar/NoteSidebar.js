@@ -9,8 +9,8 @@ class NoteSidebar extends React.Component {
 	render() {
 		let noteId = this.props.match.params.noteId;
 		let note = this.context.getNoteFromId(noteId);
-		let folderId = note && note.folderId;
-		let folder = this.context.getFolderFromId(folderId);
+		let folder_id = note && note.folder_id;
+		let folder = this.context.getFolderFromId(folder_id);
 		
 		return (
 			<div>

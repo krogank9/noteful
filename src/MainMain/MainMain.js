@@ -16,13 +16,13 @@ class MainMain extends React.Component {
 	};
 	
 	render() {
-		let folderId = this.props.match.params.folderId;
+		let folder_id = this.props.match.params.folder_id;
 		// Show only notes in current folder
 		let filteredNotes = this.context.notes.filter((note) => {
-			if (!folderId)
+			if (!folder_id)
 				return true;
 			else
-				return parseInt(note.folderId) === parseInt(folderId);
+				return parseInt(note.folder_id) === parseInt(folder_id);
 		});
 		
 		let noteCount = filteredNotes.length;
@@ -53,7 +53,7 @@ MainMain.propTypes = {
 		id: PropTypes.string.isRequired,
 		name: PropTypes.string.isRequired,
 		modified: PropTypes.string.isRequired,
-		folderId: PropTypes.string.isRequired,
+		folder_id: PropTypes.string.isRequired,
 		content: PropTypes.string.isRequired
 	}))
 };

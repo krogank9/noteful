@@ -7,11 +7,11 @@ import NotefulContext from '../NotefulContext.js';
 class AddNote extends React.Component {
 	static contextType = NotefulContext;
 	
-	requestAddNote = (name, content, folderId) => {
+	requestAddNote = (name, content, folder_id) => {
 		fetch(`http://localhost:8000/api/notes`, {
 			method: "POST", 
 			headers: {'Content-Type': 'application/json'},
-			body: JSON.stringify({"name": name, "content": content, "folderId": folderId})
+			body: JSON.stringify({"name": name, "content": content, "folder_id": folder_id})
 		})
 			.then(response => {
 				if(response.ok) 
@@ -22,7 +22,7 @@ class AddNote extends React.Component {
 			.then(json => {
 				this.context.onAddNote(json);
 			})
-			.catch(err => alert(`Error adding note "${name}" to folder "${folderId}", ${err}`));
+			.catch(err => alert(`Error adding note "${name}" to folder "${folder_id}", ${err}`));
 	}
 	
 	handleSubmit = (event) => {

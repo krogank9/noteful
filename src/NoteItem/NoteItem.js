@@ -51,7 +51,7 @@ NoteItem.propTypes = {
 		id: PropTypes.string.isRequired,
 		name: PropTypes.string.isRequired,
 		modified: PropTypes.string,
-		folderId: PropTypes.string,
+		folder_id: PropTypes.string,
 		content: PropTypes.string
 	}),
 	onDeleteNote: PropTypes.func
